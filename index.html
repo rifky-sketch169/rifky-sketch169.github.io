@@ -19,19 +19,24 @@
     nav {
       margin-top: 10px;
     }
-    nav a {
-      margin: 0 15px;
+    nav button {
+      margin: 0 10px;
+      background: none;
+      border: none;
       color: white;
-      text-decoration: none;
       font-weight: bold;
+      font-size: 16px;
       cursor: pointer;
     }
-    nav a:hover {
+    nav button:hover {
       text-decoration: underline;
     }
     section {
       padding: 40px 20px;
-      border-bottom: 1px solid #ccc;
+      display: none;
+    }
+    section.active {
+      display: block;
     }
     h2 {
       color: #006400;
@@ -68,13 +73,13 @@
   <header>
     <h1>SMKS Islam Malahayati</h1>
     <nav>
-      <a onclick="scrollToSection('profil')">Profil</a>
-      <a onclick="scrollToSection('program')">Program Keahlian</a>
-      <a onclick="scrollToSection('kontak')">Kontak</a>
+      <button onclick="showSection('profil')">Profil</button>
+      <button onclick="showSection('program')">Program Keahlian</button>
+      <button onclick="showSection('kontak')">Kontak</button>
     </nav>
   </header>
 
-  <section id="profil">
+  <section id="profil" class="active">
     <h2>Profil Sekolah</h2>
     <p>SMKS Islam Malahayati adalah sekolah menengah kejuruan berbasis Islam yang berkomitmen mencetak generasi unggul, berakhlak mulia, dan siap kerja.</p>
     <p>Terletak di lingkungan yang nyaman dan strategis, sekolah ini menawarkan fasilitas modern dan tenaga pengajar profesional.</p>
@@ -85,7 +90,7 @@
     <ul>
       <li>Teknik Komputer dan Jaringan (TKJ)</li>
       <li>Akuntansi dan Keuangan Lembaga (AKL)</li>
-      <li>Otomatisasi dan Tata Kelola Perkantoran (OTKP)</li>
+      <li>Amimistrasi Perkantoran (AP)</li>
     </ul>
   </section>
 
@@ -108,8 +113,12 @@
   </footer>
 
   <script>
-    function scrollToSection(id) {
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    function showSection(id) {
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
     }
   </script>
 
