@@ -2,244 +2,234 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SMKS Islam Malahayati</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #a0e7e5, #b4f8c8, #ffffff);
+      background: linear-gradient(to bottom right, #a0eec0, #b3e5fc, #ffffff);
       color: #333;
     }
+
     header {
-      background: linear-gradient(to right, #00bfa6, #00d2ff);
-      color: white;
-      padding: 2rem;
-      text-align: center;
       position: relative;
+      background: linear-gradient(to right, #00bfa5, #81d4fa);
+      color: white;
+      padding: 80px 20px 60px;
+      text-align: center;
+      overflow: hidden;
     }
-    header h1 {
-      font-size: 3rem;
-      margin: 0;
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -30px;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: url('https://www.transparenttextures.com/patterns/geometry2.png');
+      opacity: 0.2;
     }
-    header p {
-      font-size: 1.2rem;
-      margin-top: 0.5rem;
+
+    .hero h1 {
+      font-size: 3em;
+      animation: fadeInDown 1s ease;
     }
+
+    .hero p {
+      font-size: 1.3em;
+      font-style: italic;
+      animation: fadeInUp 1s ease;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .menu-toggle {
       position: absolute;
-      top: 1rem;
-      left: 1rem;
-      font-size: 2rem;
+      top: 20px;
+      left: 20px;
+      font-size: 2em;
       cursor: pointer;
+      z-index: 1000;
+      transition: transform 0.3s ease;
     }
-    nav {
+
+    .menu-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    nav#sidebar {
       position: fixed;
       top: 0;
       left: -250px;
-      width: 200px;
+      width: 220px;
       height: 100%;
-      background-color: #00bfa6;
-      transition: left 0.3s ease;
-      padding-top: 4rem;
-      z-index: 1000;
+      background-color: #004d40;
+      color: white;
+      transition: left 0.4s ease;
+      padding-top: 80px;
+      z-index: 999;
     }
-    nav.active {
+
+    nav#sidebar.active {
       left: 0;
     }
-    nav ul {
+
+    nav#sidebar ul {
       list-style: none;
-      padding: 0;
     }
-    nav ul li {
-      padding: 1rem;
+
+    nav#sidebar ul li {
+      padding: 15px 20px;
+      border-bottom: 1px solid #00796b;
+      transition: background 0.3s ease;
+    }
+
+    nav#sidebar ul li:hover {
+      background-color: #00695c;
+    }
+
+    nav#sidebar ul li a {
       color: white;
-      cursor: pointer;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-    }
-    nav ul li:hover {
-      background-color: #00d2ff;
-    }
-    main {
-      padding: 2rem;
-    }
-    section {
-      display: none;
-      animation: fadeIn 0.5s ease-in-out;
-    }
-    section.active {
+      text-decoration: none;
       display: block;
     }
+
+    main {
+      padding: 40px 20px;
+      animation: fadeIn 1s ease;
+    }
+
     @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
-    .card {
-      background: white;
-      border-radius: 10px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+    section {
+      margin-bottom: 60px;
+      transition: transform 0.3s ease;
     }
-    .card h2 {
-      margin-top: 0;
-      color: #00bfa6;
+
+    section:hover {
+      transform: scale(1.01);
     }
-    .gallery img {
-      width: 100%;
-      max-width: 300px;
-      margin: 10px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+
+    section h2 {
+      color: #00796b;
+      font-size: 2em;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #00acc1;
+      display: inline-block;
+      padding-bottom: 5px;
     }
-    form input, form textarea {
-      width: 100%;
-      padding: 0.8rem;
-      margin: 0.5rem 0;
-      border: 1px solid #ccc;
+
+    .program-card {
+      background-color: #e0f7fa;
+      border-left: 5px solid #00acc1;
+      padding: 15px;
+      margin-bottom: 20px;
       border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: box-shadow 0.3s ease;
     }
-    form button {
-      background-color: #00bfa6;
-      color: white;
-      padding: 0.8rem 1.5rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+
+    .program-card:hover {
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
-    form button:hover {
-      background-color: #00d2ff;
-    }
+
     footer {
-      background-color: #00bfa6;
+      background-color: #004d40;
       color: white;
       text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
-    svg {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 150px;
-      height: 150px;
-      opacity: 0.2;
+      padding: 20px;
+      font-size: 0.9em;
     }
   </style>
 </head>
 <body>
   <header>
-    <svg viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r="40" fill="#ffffff"/>
-    </svg>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-    <h1>SMKS ISLAM MALAHAYATI</h1>
-    <p>Yayasan Bina Bersama Indomas</p>
+    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+    <nav id="sidebar">
+      <ul>
+        <li><a href="#profil">Profil Sekolah</a></li>
+        <li><a href="#visi">Visi & Misi</a></li>
+        <li><a href="#program">Program Sekolah</a></li>
+        <li><a href="#kontak">Kontak</a></li>
+      </ul>
+    </nav>
+    <div class="hero">
+      <h1>SMKS ISLAM MALAHAYATI</h1>
+      <p>Yayasan Bina Bersama Indomas</p>
+    </div>
   </header>
 
-  <nav id="sidebar">
-    <ul>
-      <li onclick="showSection('beranda')">Beranda</li>
-      <li onclick="showSection('profil')">Profil Sekolah</li>
-      <li onclick="showSection('visi')">Visi & Misi</li>
-      <li onclick="showSection('program')">Program Sekolah</li>
-      <li onclick="showSection('galeri')">Galeri</li>
-      <li onclick="showSection('daftar')">Formulir Pendaftaran</li>
-      <li onclick="showSection('kontak')">Kontak Sekolah</li>
-    </ul>
-  </nav>
-
   <main>
-    <section id="beranda" class="active">
-      <div class="card">
-        <h2>Selamat Datang di SMKS Islam Malahayati</h2>
-        <p>Sekolah kejuruan berbasis Islam yang berkomitmen mencetak generasi unggul, berakhlak, dan siap kerja.</p>
-      </div>
-    </section>
-
     <section id="profil">
-      <div class="card">
-        <h2>Profil Sekolah</h2>
-        <p>Didirikan oleh Yayasan Bina Bersama Indomas, SMKS Islam Malahayati berlokasi strategis dan memiliki fasilitas lengkap untuk mendukung pembelajaran.</p>
-      </div>
+      <h2>Profil Sekolah</h2>
+      <p>SMKS Islam Malahayati adalah lembaga pendidikan menengah kejuruan yang berkomitmen membentuk generasi islami, kompeten, dan siap kerja. Sekolah ini mengintegrasikan nilai-nilai keislaman dengan keterampilan teknologi dan bisnis untuk mencetak lulusan yang unggul dan berakhlak mulia.</p>
     </section>
 
     <section id="visi">
-      <div class="card">
-        <h2>Visi & Misi</h2>
-        <p><strong>Visi:</strong> Menjadi sekolah kejuruan islami unggulan.</p>
-        <p><strong>Misi:</strong></p>
-        <ul>
-          <li>Menyelenggarakan pendidikan berkualitas.</li>
-          <li>Membentuk karakter islami dan profesional.</li>
-          <li>Menjalin kemitraan dengan dunia industri.</li>
-        </ul>
-      </div>
+      <h2>Visi & Misi</h2>
+      <h3>Visi</h3>
+      <p>Menjadi sekolah unggulan berbasis nilai-nilai Islam dan teknologi.</p>
+      <h3>Misi</h3>
+      <ul>
+        <li>Meningkatkan kualitas pendidikan dan karakter siswa.</li>
+        <li>Mengembangkan keterampilan sesuai kebutuhan industri.</li>
+        <li>Menanamkan nilai-nilai keislaman dalam kehidupan sehari-hari.</li>
+      </ul>
     </section>
 
     <section id="program">
-      <div class="card">
-        <h2>Program Keahlian</h2>
-        <ul>
-          <li>TJKT - Teknik Jaringan Komputer dan Telekomunikasi</li>
-          <li>AKL - Akuntansi dan Keuangan Lembaga</li>
-          <li>AP - Otomatisasi dan Tata Kelola Perkantoran</li>
-        </ul>
+      <h2>Program Sekolah</h2>
+      <div class="program-card">
+        <h3>Teknik Jaringan Komputer dan Telekomunikasi (TJKT)</h3>
+        <p>Fokus pada jaringan, server, dan teknologi komunikasi.</p>
       </div>
-    </section>
-
-    <section id="galeri">
-      <div class="card">
-        <h2>Galeri Sekolah</h2>
-        <div class="gallery">
-          <img src="https://via.placeholder.com/300x200?text=Gedung+Sekolah" alt="Gedung Sekolah">
-          <img src="https://via.placeholder.com/300x200?text=Kegiatan+Siswa" alt="Kegiatan Siswa">
-          <img src="https://via.placeholder.com/300x200?text=Laboratorium" alt="Laboratorium">
-        </div>
+      <div class="program-card">
+        <h3>Akuntansi dan Keuangan Lembaga (AKL)</h3>
+        <p>Belajar akuntansi, pembukuan, dan sistem keuangan modern.</p>
       </div>
-    </section>
-
-    <section id="daftar">
-      <div class="card">
-        <h2>Formulir Pendaftaran</h2>
-        <form>
-          <label>Nama Lengkap:</label>
-          <input type="text" name="nama" required>
-          <label>Email:</label>
-          <input type="email" name="email" required>
-          <label>Program Pilihan:</label>
-          <input type="text" name="program" required>
-          <label>Pesan Tambahan:</label>
-          <textarea name="pesan" rows="4"></textarea>
-          <button type="submit">Kirim Pendaftaran</button>
-        </form>
+      <div class="program-card">
+        <h3>Perkantoran (AP)</h3>
+        <p>Menyiapkan siswa menjadi tenaga administrasi profesional.</p>
       </div>
     </section>
 
     <section id="kontak">
-      <div class="card">
-        <h2>Kontak Sekolah</h2>
-        <p>📍 Alamat: Jl. Gongseng RayaNo. 123, Jakarta Timur</p>
-        <p>📧 Email: info@smksmalahayati.sch.id</p>
-        <p>📞 Telepon: (021) 12345678</p>
-        <p>📱 WhatsApp: 0812-3456-7890</p>
-      </div>
+      <h2>Kontak Sekolah</h2>
+      <p>Alamat: Jl. Gongseng Raya No. 123, Jakarta Timur</p>
+      <p>Email: info@smksmalahayati.sch.id</p>
+      <p>Telepon: (021) 12345678</p>
     </section>
   </main>
 
   <footer>
-    &copy; 2025 SMKS Islam Malahayati. All rights reserved.
+    <p>&copy; 2025 SMKS Islam Malahayati. All rights reserved.</p>
   </footer>
 
   <script>
-    function toggleMenu() {
-      document.getElementById('sidebar').classList.toggle('active');
-    }
-    function showSection(id) {
-      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      document.getElementById('sidebar').classList.remove('active');
-    }
+    const toggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    toggle.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+    });
   </script>
 </body>
-</
+          </html>
