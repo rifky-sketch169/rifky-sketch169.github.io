@@ -7,53 +7,60 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: Arial, sans-serif;
       background: linear-gradient(to bottom right, #006400, #ffffff);
       color: #333;
+      overflow-x: hidden;
     }
     header {
       background-color: #006400;
       color: white;
       padding: 40px 20px;
       text-align: center;
-      background-image: url('https://www.transparenttextures.com/patterns/arabesque.png');
     }
-    nav {
+    .nav-buttons {
+      text-align: center;
       background-color: #ffffff;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
       padding: 15px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       position: sticky;
       top: 0;
       z-index: 1000;
     }
-    nav a {
-      text-decoration: none;
-      color: #006400;
+    .nav-buttons button {
+      background-color: #006400;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 5px;
       font-weight: bold;
     }
-    section {
+    .slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 400%;
+    }
+    .slide {
+      width: 100vw;
       padding: 40px 20px;
-      max-width: 800px;
-      margin: auto;
-      background-color: rgba(255,255,255,0.9);
-      border-radius: 10px;
-      margin-top: 20px;
-      box-shadow: 0 0 10px rgba(0,100,0,0.2);
+      box-sizing: border-box;
+      background-color: rgba(255,255,255,0.95);
     }
     h2 {
       color: #006400;
       border-bottom: 2px solid #006400;
       padding-bottom: 10px;
     }
+    ul {
+      padding-left: 20px;
+    }
     footer {
       text-align: center;
       padding: 20px;
       background-color: #006400;
       color: white;
-      margin-top: 40px;
     }
   </style>
 </head>
@@ -61,53 +68,66 @@
 
   <header>
     <h1>SMKS Islam Malahayati</h1>
-    <p>Membangun Generasi Islami yang Unggul dan Profesional</p>
+    <p>Membangun Generasi Islami yang Unggul, Mandiri, dan Profesional</p>
   </header>
 
-  <nav>
-    <a href="#profil">Profil</a>
-    <a href="#visimisi">Visi & Misi</a>
-    <a href="#program">Program Keahlian</a>
-    <a href="#kontak">Kontak</a>
-  </nav>
+  <div class="nav-buttons">
+    <button onclick="goToSlide(0)">Profil</button>
+    <button onclick="goToSlide(1)">Visi & Misi</button>
+    <button onclick="goToSlide(2)">Program Keahlian</button>
+    <button onclick="goToSlide(3)">Kontak</button>
+  </div>
 
-  <section id="profil">
-    <h2>Profil Sekolah</h2>
-    <p>SMKS Islam Malahayati adalah sekolah menengah kejuruan berbasis Islam yang berlokasi di Jakarta. Berdiri sejak tahun 2005, sekolah ini telah mencetak lulusan yang kompeten dan berakhlak mulia. Fasilitas lengkap, tenaga pengajar profesional, dan lingkungan belajar yang kondusif menjadikan sekolah ini pilihan terbaik bagi generasi muda.</p>
-  </section>
+  <div class="slider" id="slider">
+    <div class="slide">
+      <h2>Profil Sekolah</h2>
+      <p>SMKS Islam Malahayati adalah sekolah menengah kejuruan berbasis Islam yang berdiri sejak tahun 1990. Kami berkomitmen untuk mencetak lulusan yang tidak hanya kompeten secara teknis, tetapi juga memiliki akhlak yang mulia dan semangat kepemimpinan.</p>
+      <p>Terletak di pusat kota Jakarta Timur, sekolah ini dilengkapi dengan fasilitas modern seperti laboratorium komputer, studio multimedia, ruang praktik bisnis, dan masjid sekolah. Lingkungan belajar yang nyaman dan kondusif mendukung proses pembelajaran yang efektif dan menyenangkan.</p>
+    </div>
 
-  <section id="visimisi">
-    <h2>Visi dan Misi</h2>
-    <p><strong>Visi:</strong> Menjadi sekolah kejuruan Islam yang unggul dalam pendidikan, berakhlak mulia, dan siap bersaing di dunia kerja.</p>
-    <p><strong>Misi:</strong></p>
-    <ul>
-      <li>Menanamkan nilai-nilai Islam dalam kehidupan siswa</li>
-      <li>Menyediakan pendidikan kejuruan yang berkualitas</li>
-      <li>Mendorong kreativitas dan inovasi siswa</li>
-      <li>Menjalin kemitraan dengan dunia industri</li>
-    </ul>
-  </section>
+    <div class="slide">
+      <h2>Visi dan Misi</h2>
+      <p><strong>Visi:</strong> Menjadi sekolah kejuruan Islam yang unggul dalam pendidikan karakter, keterampilan, dan spiritualitas.</p>
+      <p><strong>Misi:</strong></p>
+      <ul>
+        <li>Menanamkan nilai-nilai keislaman dalam setiap aspek pembelajaran</li>
+        <li>Menyelenggarakan pendidikan kejuruan yang relevan dengan kebutuhan industri</li>
+        <li>Mendorong siswa untuk berinovasi dan berwirausaha</li>
+        <li>Membangun kemitraan strategis dengan dunia usaha dan dunia industri</li>
+        <li>Mengembangkan potensi siswa secara holistik: intelektual, emosional, dan spiritual</li>
+      </ul>
+    </div>
 
-  <section id="program">
-    <h2>Program Keahlian</h2>
-    <ul>
-      <li>Teknik Komputer dan Jaringan</li>
-      <li>Akuntansi dan Keuangan Lembaga</li>
-      <li>Administrasi Perkantoran </li>
-    </ul>
-  </section>
+    <div class="slide">
+      <h2>Program Keahlian</h2>
+      <p>Kami menawarkan berbagai program keahlian yang dirancang untuk membekali siswa dengan keterampilan praktis dan pengetahuan industri terkini:</p>
+      <ul>
+        <li><strong>Teknik Komputer dan Jaringan:</strong> Instalasi, konfigurasi, dan pemeliharaan jaringan komputer serta keamanan siber.</li>
+        <li><strong>Akuntansi dan Keuangan Lembaga:</strong> Pembelajaran akuntansi manual dan digital, serta pengelolaan keuangan organisasi.</li>
+        <li><strong>Administrasi Perkantoran:</strong> Pembelajaran bagaimana menjadi sekretaris dalam sebuah perusahaan</li>
+      </ul>
+    </div>
 
-  <section id="kontak">
-    <h2>Kontak</h2>
-    <p><strong>Alamat:</strong> Jl. Gongseng Raya No.123, Jakarta Timur</p>
-    <p><strong>Telepon:</strong> 021-12345678</p>
-    <p><strong>Email:</strong> info@smksmalahayati.sch.id</p>
-    <p><strong>WhatsApp:</strong> 0812-3456-7890</p>
-  </section>
+    <div class="slide">
+      <h2>Kontak</h2>
+      <p><strong>Alamat:</strong> Jl. Gongseng Raya No.123, Jakarta Pusat</p>
+      <p><strong>Telepon:</strong> (021) 1234-5678</p>
+      <p><strong>Email:</strong> info@smksmalahayati.sch.id</p>
+      <p><strong>WhatsApp:</strong> 0812-3456-7890</p>
+      <p><strong>Jam Operasional:</strong> Senin - Jumat, 06,30 - 15.00 WIB</p>
+    </div>
+  </div>
 
   <footer>
-    &copy; 2025 SMKS Islam Malahayati. All rights reserved.
+    &copy; 2025 SMKS Islam Malahayati. Website resmi sekolah.
   </footer>
+
+  <script>
+    function goToSlide(index) {
+      const slider = document.getElementById('slider');
+      slider.style.transform = `translateX(-${index * 100}vw)`;
+    }
+  </script>
 
 </body>
 </html>
