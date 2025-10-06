@@ -1,133 +1,183 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>SMKS Islam Malahayati</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom right, #006400, #ffffff);
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #a0e7e5, #b4f8c8, #ffffff);
       color: #333;
-      overflow-x: hidden;
     }
     header {
-      background-color: #006400;
+      background: linear-gradient(to right, #00bfa6, #00d2ff);
       color: white;
-      padding: 40px 20px;
+      padding: 2rem;
       text-align: center;
+      position: relative;
     }
-    .nav-buttons {
-      text-align: center;
-      background-color: #ffffff;
-      padding: 15px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      position: sticky;
+    header h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+    header p {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+    }
+    .menu-toggle {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+    nav {
+      position: fixed;
       top: 0;
+      left: -250px;
+      width: 200px;
+      height: 100%;
+      background-color: #00bfa6;
+      transition: left 0.3s ease;
+      padding-top: 4rem;
       z-index: 1000;
     }
-    .nav-buttons button {
-      background-color: #006400;
+    nav.active {
+      left: 0;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+    nav ul li {
+      padding: 1rem;
       color: white;
-      border: none;
-      padding: 10px 20px;
-      margin: 5px;
       cursor: pointer;
-      border-radius: 5px;
-      font-weight: bold;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
     }
-    .slider {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-      width: 400%;
+    nav ul li:hover {
+      background-color: #00d2ff;
     }
-    .slide {
-      width: 100vw;
-      padding: 40px 20px;
-      box-sizing: border-box;
-      background-color: rgba(255,255,255,0.95);
+    main {
+      padding: 2rem;
     }
-    h2 {
-      color: #006400;
-      border-bottom: 2px solid #006400;
-      padding-bottom: 10px;
+    section {
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
     }
-    ul {
-      padding-left: 20px;
+    section.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .card h2 {
+      margin-top: 0;
+      color: #00bfa6;
     }
     footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #006400;
+      background-color: #00bfa6;
       color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
     }
   </style>
 </head>
 <body>
-
   <header>
-    <h1>SMKS Islam Malahayati</h1>
-    <p>Membangun Generasi Islami yang Unggul, Mandiri, dan Profesional</p>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <h1>SMKS ISLAM MALAHAYATI</h1>
+    <p>Yayasan Bina Bersama Indomas</p>
   </header>
 
-  <div class="nav-buttons">
-    <button onclick="goToSlide(0)">Profil</button>
-    <button onclick="goToSlide(1)">Visi & Misi</button>
-    <button onclick="goToSlide(2)">Program Keahlian</button>
-    <button onclick="goToSlide(3)">Kontak</button>
-  </div>
+  <nav id="sidebar">
+    <ul>
+      <li onclick="showSection('beranda')">Beranda</li>
+      <li onclick="showSection('profil')">Profil Sekolah</li>
+      <li onclick="showSection('visi')">Visi & Misi</li>
+      <li onclick="showSection('program')">Program Sekolah</li>
+      <li onclick="showSection('kontak')">Kontak Sekolah</li>
+    </ul>
+  </nav>
 
-  <div class="slider" id="slider">
-    <div class="slide">
-      <h2>Profil Sekolah</h2>
-      <p>SMKS Islam Malahayati adalah sekolah menengah kejuruan berbasis Islam yang berdiri sejak tahun 1990. Kami berkomitmen untuk mencetak lulusan yang tidak hanya kompeten secara teknis, tetapi juga memiliki akhlak yang mulia dan semangat kepemimpinan.</p>
-      <p>Terletak di pusat kota Jakarta Timur, sekolah ini dilengkapi dengan fasilitas modern seperti laboratorium komputer, studio multimedia, ruang praktik bisnis, dan masjid sekolah. Lingkungan belajar yang nyaman dan kondusif mendukung proses pembelajaran yang efektif dan menyenangkan.</p>
-    </div>
+  <main>
+    <section id="beranda" class="active">
+      <div class="card">
+        <h2>Selamat Datang di SMKS Islam Malahayati</h2>
+        <p>SMKS Islam Malahayati adalah sekolah menengah kejuruan berbasis nilai-nilai Islam yang berkomitmen mencetak generasi unggul, berakhlak mulia, dan siap menghadapi dunia kerja serta teknologi modern.</p>
+        <p>Dengan lingkungan belajar yang nyaman dan fasilitas lengkap, kami menghadirkan pendidikan berkualitas untuk masa depan yang gemilang.</p>
+      </div>
+    </section>
 
-    <div class="slide">
-      <h2>Visi dan Misi</h2>
-      <p><strong>Visi:</strong> Menjadi sekolah kejuruan Islam yang unggul dalam pendidikan karakter, keterampilan, dan spiritualitas.</p>
-      <p><strong>Misi:</strong></p>
-      <ul>
-        <li>Menanamkan nilai-nilai keislaman dalam setiap aspek pembelajaran</li>
-        <li>Menyelenggarakan pendidikan kejuruan yang relevan dengan kebutuhan industri</li>
-        <li>Mendorong siswa untuk berinovasi dan berwirausaha</li>
-        <li>Membangun kemitraan strategis dengan dunia usaha dan dunia industri</li>
-        <li>Mengembangkan potensi siswa secara holistik: intelektual, emosional, dan spiritual</li>
-      </ul>
-    </div>
+    <section id="profil">
+      <div class="card">
+        <h2>Profil Sekolah</h2>
+        <p>SMKS Islam Malahayati berdiri di bawah naungan Yayasan Bina Bersama Indomas. Sekolah ini memiliki tujuan utama untuk membentuk siswa yang tidak hanya cerdas secara akademik, tetapi juga memiliki karakter islami yang kuat.</p>
+        <p>Dengan tenaga pengajar profesional dan kurikulum yang relevan, kami terus berinovasi dalam metode pembelajaran dan pengembangan potensi siswa.</p>
+      </div>
+    </section>
 
-    <div class="slide">
-      <h2>Program Keahlian</h2>
-      <p>Kami menawarkan berbagai program keahlian yang dirancang untuk membekali siswa dengan keterampilan praktis dan pengetahuan industri terkini:</p>
-      <ul>
-        <li><strong>Teknik Komputer dan Jaringan:</strong> Instalasi, konfigurasi, dan pemeliharaan jaringan komputer serta keamanan siber.</li>
-        <li><strong>Akuntansi dan Keuangan Lembaga:</strong> Pembelajaran akuntansi manual dan digital, serta pengelolaan keuangan organisasi.</li>
-        <li><strong>Administrasi Perkantoran:</strong> Pembelajaran bagaimana menjadi sekretaris dalam sebuah perusahaan</li>
-      </ul>
-    </div>
+    <section id="visi">
+      <div class="card">
+        <h2>Visi & Misi</h2>
+        <p><strong>Visi:</strong> Menjadi sekolah kejuruan islami unggulan yang menghasilkan lulusan berkompeten dan berakhlak mulia.</p>
+        <p><strong>Misi:</strong></p>
+        <ul>
+          <li>Menyelenggarakan pendidikan berbasis nilai-nilai Islam.</li>
+          <li>Mengembangkan potensi siswa dalam bidang akademik dan keterampilan kerja.</li>
+          <li>Menjalin kemitraan dengan dunia industri dan usaha.</li>
+          <li>Mendorong inovasi dan kreativitas dalam pembelajaran.</li>
+        </ul>
+      </div>
+    </section>
 
-    <div class="slide">
-      <h2>Kontak</h2>
-      <p><strong>Alamat:</strong> Jl. Gongseng Raya No.123, Jakarta Pusat</p>
-      <p><strong>Telepon:</strong> (021) 1234-5678</p>
-      <p><strong>Email:</strong> info@smksmalahayati.sch.id</p>
-      <p><strong>WhatsApp:</strong> 0812-3456-7890</p>
-      <p><strong>Jam Operasional:</strong> Senin - Jumat, 06,30 - 15.00 WIB</p>
-    </div>
-  </div>
+    <section id="program">
+      <div class="card">
+        <h2>Program Keahlian</h2>
+        <ul>
+          <li><strong>TJKT</strong> - Teknik Jaringan Komputer dan Telekomunikasi</li>
+          <li><strong>AKL</strong> - Akuntansi dan Keuangan Lembaga</li>
+          <li><strong>AP</strong> - Otomatisasi dan Tata Kelola Perkantoran</li>
+        </ul>
+        <p>Setiap program dirancang untuk membekali siswa dengan keterampilan praktis dan pengetahuan yang dibutuhkan di dunia kerja.</p>
+      </div>
+    </section>
+
+    <section id="kontak">
+      <div class="card">
+        <h2>Kontak Sekolah</h2>
+        <p>📍 Alamat: Jl. Gongseng Raya No. 123, Jakarta Timur</p>
+        <p>📧 Email: info@smksmalahayati.sch.id</p>
+        <p>📞 Telepon: (021) 12345678</p>
+        <p>📱 WhatsApp: 0812-3456-7890</p>
+      </div>
+    </section>
+  </main>
 
   <footer>
-    &copy; 2025 SMKS Islam Malahayati. Website resmi sekolah.
+    &copy; 2025 SMKS Islam Malahayati. All rights reserved.
   </footer>
 
   <script>
-    function goToSlide(index) {
-      const slider = document.getElementById('slider');
-      slider.style.transform = `translateX(-${index * 100}vw)`;
+    function toggleMenu() {
+      document.getElementById('sidebar').classList.toggle('active');
+    }
+    function showSection(id) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.getElementById('sidebar').classList.remove('active');
     }
   </script>
-
 </body>
 </html>
