@@ -85,6 +85,31 @@
       margin-top: 0;
       color: #00bfa6;
     }
+    .gallery img {
+      width: 100%;
+      max-width: 300px;
+      margin: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    form button {
+      background-color: #00bfa6;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    form button:hover {
+      background-color: #00d2ff;
+    }
     footer {
       background-color: #00bfa6;
       color: white;
@@ -92,10 +117,21 @@
       padding: 1rem;
       margin-top: 2rem;
     }
+    svg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 150px;
+      height: 150px;
+      opacity: 0.2;
+    }
   </style>
 </head>
 <body>
   <header>
+    <svg viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="40" fill="#ffffff"/>
+    </svg>
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
     <h1>SMKS ISLAM MALAHAYATI</h1>
     <p>Yayasan Bina Bersama Indomas</p>
@@ -107,6 +143,8 @@
       <li onclick="showSection('profil')">Profil Sekolah</li>
       <li onclick="showSection('visi')">Visi & Misi</li>
       <li onclick="showSection('program')">Program Sekolah</li>
+      <li onclick="showSection('galeri')">Galeri</li>
+      <li onclick="showSection('daftar')">Formulir Pendaftaran</li>
       <li onclick="showSection('kontak')">Kontak Sekolah</li>
     </ul>
   </nav>
@@ -115,29 +153,26 @@
     <section id="beranda" class="active">
       <div class="card">
         <h2>Selamat Datang di SMKS Islam Malahayati</h2>
-        <p>SMKS Islam Malahayati adalah sekolah menengah kejuruan berbasis nilai-nilai Islam yang berkomitmen mencetak generasi unggul, berakhlak mulia, dan siap menghadapi dunia kerja serta teknologi modern.</p>
-        <p>Dengan lingkungan belajar yang nyaman dan fasilitas lengkap, kami menghadirkan pendidikan berkualitas untuk masa depan yang gemilang.</p>
+        <p>Sekolah kejuruan berbasis Islam yang berkomitmen mencetak generasi unggul, berakhlak, dan siap kerja.</p>
       </div>
     </section>
 
     <section id="profil">
       <div class="card">
         <h2>Profil Sekolah</h2>
-        <p>SMKS Islam Malahayati berdiri di bawah naungan Yayasan Bina Bersama Indomas. Sekolah ini memiliki tujuan utama untuk membentuk siswa yang tidak hanya cerdas secara akademik, tetapi juga memiliki karakter islami yang kuat.</p>
-        <p>Dengan tenaga pengajar profesional dan kurikulum yang relevan, kami terus berinovasi dalam metode pembelajaran dan pengembangan potensi siswa.</p>
+        <p>Didirikan oleh Yayasan Bina Bersama Indomas, SMKS Islam Malahayati berlokasi strategis dan memiliki fasilitas lengkap untuk mendukung pembelajaran.</p>
       </div>
     </section>
 
     <section id="visi">
       <div class="card">
         <h2>Visi & Misi</h2>
-        <p><strong>Visi:</strong> Menjadi sekolah kejuruan islami unggulan yang menghasilkan lulusan berkompeten dan berakhlak mulia.</p>
+        <p><strong>Visi:</strong> Menjadi sekolah kejuruan islami unggulan.</p>
         <p><strong>Misi:</strong></p>
         <ul>
-          <li>Menyelenggarakan pendidikan berbasis nilai-nilai Islam.</li>
-          <li>Mengembangkan potensi siswa dalam bidang akademik dan keterampilan kerja.</li>
-          <li>Menjalin kemitraan dengan dunia industri dan usaha.</li>
-          <li>Mendorong inovasi dan kreativitas dalam pembelajaran.</li>
+          <li>Menyelenggarakan pendidikan berkualitas.</li>
+          <li>Membentuk karakter islami dan profesional.</li>
+          <li>Menjalin kemitraan dengan dunia industri.</li>
         </ul>
       </div>
     </section>
@@ -146,18 +181,45 @@
       <div class="card">
         <h2>Program Keahlian</h2>
         <ul>
-          <li><strong>TJKT</strong> - Teknik Jaringan Komputer dan Telekomunikasi</li>
-          <li><strong>AKL</strong> - Akuntansi dan Keuangan Lembaga</li>
-          <li><strong>AP</strong> - Otomatisasi dan Tata Kelola Perkantoran</li>
+          <li>TJKT - Teknik Jaringan Komputer dan Telekomunikasi</li>
+          <li>AKL - Akuntansi dan Keuangan Lembaga</li>
+          <li>AP - Otomatisasi dan Tata Kelola Perkantoran</li>
         </ul>
-        <p>Setiap program dirancang untuk membekali siswa dengan keterampilan praktis dan pengetahuan yang dibutuhkan di dunia kerja.</p>
+      </div>
+    </section>
+
+    <section id="galeri">
+      <div class="card">
+        <h2>Galeri Sekolah</h2>
+        <div class="gallery">
+          <img src="https://via.placeholder.com/300x200?text=Gedung+Sekolah" alt="Gedung Sekolah">
+          <img src="https://via.placeholder.com/300x200?text=Kegiatan+Siswa" alt="Kegiatan Siswa">
+          <img src="https://via.placeholder.com/300x200?text=Laboratorium" alt="Laboratorium">
+        </div>
+      </div>
+    </section>
+
+    <section id="daftar">
+      <div class="card">
+        <h2>Formulir Pendaftaran</h2>
+        <form>
+          <label>Nama Lengkap:</label>
+          <input type="text" name="nama" required>
+          <label>Email:</label>
+          <input type="email" name="email" required>
+          <label>Program Pilihan:</label>
+          <input type="text" name="program" required>
+          <label>Pesan Tambahan:</label>
+          <textarea name="pesan" rows="4"></textarea>
+          <button type="submit">Kirim Pendaftaran</button>
+        </form>
       </div>
     </section>
 
     <section id="kontak">
       <div class="card">
         <h2>Kontak Sekolah</h2>
-        <p>📍 Alamat: Jl. Gongseng Raya No. 123, Jakarta Timur</p>
+        <p>📍 Alamat: Jl. Gongseng RayaNo. 123, Jakarta Timur</p>
         <p>📧 Email: info@smksmalahayati.sch.id</p>
         <p>📞 Telepon: (021) 12345678</p>
         <p>📱 WhatsApp: 0812-3456-7890</p>
@@ -180,4 +242,4 @@
     }
   </script>
 </body>
-</html>
+</
