@@ -62,8 +62,8 @@
   <canvas id="gameCanvas"></canvas>
 
   <!-- Suara -->
-  <audio id="jumpSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_1f3b2b4e3c.mp3?filename=jump-1-174276.mp3"></audio>
-  <audio id="hitSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b6b6b6e3c.mp3?filename=hit-1-174278.mp3"></audio>
+  <audio id="jumpSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_1f3b2b4e3c.mp3?filename=jump-1-174276.mp3" preload="auto"></audio>
+  <audio id="hitSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b6b6b6e3c.mp3?filename=hit-1-174278.mp3" preload="auto"></audio>
 
   <script>
     const canvas = document.getElementById("gameCanvas");
@@ -74,10 +74,11 @@
     let level = 1;
     let score = 0;
     let gravity = 0.6;
-    let jumpPower = -12;
+    let jumpPower = -16; // lebih tinggi
     let obstacles = [];
     let shieldActive = false;
     let shieldTimer = 0;
+    let shieldCooldown = 0;
 
     const jumpSound = document.getElementById("jumpSound");
     const hitSound = document.getElementById("hitSound");
@@ -92,6 +93,7 @@
       jump: function () {
         if (this.y >= canvas.height - this.height - 100) {
           this.dy = jumpPower;
+          jumpSound.currentTime = 0;
           jumpSound.play();
         }
       },
@@ -130,6 +132,7 @@
           player.y + player.height > obstacles[i].y
         ) {
           if (!shieldActive) {
+            hitSound.currentTime = 0;
             hitSound.play();
             alert("Game Over! Kamu sampai level " + level);
             document.location.reload();
@@ -148,9 +151,10 @@
     }
 
     function activateShield() {
-      if (!shieldActive) {
+      if (!shieldActive && shieldCooldown <= 0) {
         shieldActive = true;
-        shieldTimer = 300; // 5 detik
+        shieldTimer = 300; // aktif 5 detik
+        shieldCooldown = 1500; // cooldown 25 detik
       }
     }
 
@@ -170,8 +174,10 @@
         if (shieldTimer <= 0) shieldActive = false;
       }
 
+      if (shieldCooldown > 0) shieldCooldown--;
+
       document.getElementById("hud").innerText =
-        `Level: ${level} | Skor: ${score} | Shield: ${shieldActive ? "ON" : "OFF"}`;
+        `Level: ${level} | Skor: ${score} | Shield: ${shieldActive ? "ON" : shieldCooldown > 0 ? "Cooldown" : "READY"}`;
 
       requestAnimationFrame(gameLoop);
     }
@@ -185,4 +191,4 @@
     gameLoop();
   </script>
 </body>
-    </html>
+</html>
