@@ -28,16 +28,6 @@
       padding: 20px;
       animation: fadeIn 0.8s ease;
     }
-    .character-select, .level-select {
-      margin-bottom: 20px;
-    }
-    select {
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      background: #333;
-      color: white;
-    }
     .question {
       font-size: 1.2em;
       margin: 20px 0;
@@ -63,6 +53,11 @@
       font-size: 1em;
       color: #ccc;
     }
+    .timer {
+      font-size: 1.2em;
+      margin-top: 10px;
+      color: #FFA500;
+    }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -71,78 +66,50 @@
 </head>
 <body>
   <h1>Game Edukasi Bermasyarakat</h1>
-  <p>Pilih karakter dan tingkatkan pengetahuan sosialmu!</p>
+  <p>Jawab pertanyaan sebelum waktunya habis!</p>
 
   <div class="game-box">
-    <div class="character-select">
-      <label>Pilih Karakter: </label>
-      <select id="character">
-        <option value="Pak RT">Pak RT</option>
-        <option value="Ibu RW">Ibu RW</option>
-        <option value="Pemuda Karang Taruna">Pemuda Karang Taruna</option>
-      </select>
-    </div>
-
-    <div class="level-select">
-      <label>Pilih Level: </label>
-      <select id="level">
-        <option value="easy">Mudah</option>
-        <option value="medium">Sedang</option>
-        <option value="hard">Sulit</option>
-      </select>
-    </div>
-
     <button onclick="startGame()">Mulai Permainan</button>
-
     <div id="gameArea" style="display:none;">
       <div class="question" id="question">Pertanyaan akan muncul di sini</div>
       <div class="options" id="options"></div>
+      <div class="timer" id="timer">Waktu: 10 detik</div>
       <div class="status" id="status">Skor: 0 | Nyawa: ❤️❤️❤️</div>
     </div>
   </div>
 
   <script>
-    const questions = {
-      easy: [
-        { q: "Apa arti gotong royong?", o: ["Kerja sama", "Liburan", "Main game", "Tidur"], a: 0 },
-        { q: "Sikap baik saat rapat warga?", o: ["Menyela", "Diam", "Mendengarkan", "Tidur"], a: 2 }
-      ],
-      medium: [
-        { q: "Apa manfaat kerja bakti?", o: ["Lingkungan bersih", "Buang waktu", "Tambah musuh", "Lelah"], a: 0 },
-        { q: "Jika tetangga sakit, kita sebaiknya?", o: ["Menghindar", "Membantu", "Gosip", "Acuh"], a: 1 }
-      ],
-      hard: [
-        { q: "Apa dampak hoaks di masyarakat?", o: ["Kebersamaan", "Kekacauan", "Kesehatan", "Kebahagiaan"], a: 1 },
-        { q: "Apa peran pemuda dalam masyarakat?", o: ["Pasif", "Pengamat", "Penggerak", "Penonton"], a: 2 }
-      ]
-    };
+    const questions = [
+      { q: "Apa arti gotong royong?", o: ["Kerja sama", "Liburan", "Main game", "Tidur"], a: 0 },
+      { q: "Sikap baik saat rapat warga?", o: ["Menyela", "Diam", "Mendengarkan", "Tidur"], a: 2 },
+      { q: "Manfaat kerja bakti?", o: ["Lingkungan bersih", "Buang waktu", "Tambah musuh", "Lelah"], a: 0 },
+      { q: "Jika tetangga sakit, kita sebaiknya?", o: ["Menghindar", "Membantu", "Gosip", "Acuh"], a: 1 },
+      { q: "Dampak hoaks di masyarakat?", o: ["Kebersamaan", "Kekacauan", "Kesehatan", "Kebahagiaan"], a: 1 }
+    ];
 
     let current = 0;
     let score = 0;
     let lives = 3;
-    let selectedLevel = "easy";
-    let selectedQuestions = [];
+    let timeLeft = 10;
+    let timerInterval;
 
     function startGame() {
-      const character = document.getElementById("character").value;
-      selectedLevel = document.getElementById("level").value;
-      selectedQuestions = questions[selectedLevel];
       current = 0;
       score = 0;
       lives = 3;
       document.getElementById("gameArea").style.display = "block";
-      alert(`Halo ${character}! Selamat bermain di level ${selectedLevel}.`);
       loadQuestion();
     }
 
     function loadQuestion() {
-      if (current >= selectedQuestions.length || lives <= 0) {
+      if (current >= questions.length || lives <= 0) {
         document.getElementById("question").innerText = "Permainan selesai!";
-        document.getElementById("options").innerHTML = `<p>Skor akhir: ${score} dari ${selectedQuestions.length}</p>`;
+        document.getElementById("options").innerHTML = `<p>Skor akhir: ${score} dari ${questions.length}</p>`;
+        document.getElementById("timer").style.display = "none";
         return;
       }
 
-      const q = selectedQuestions[current];
+      const q = questions[current];
       document.getElementById("question").innerText = q.q;
       const optionsDiv = document.getElementById("options");
       optionsDiv.innerHTML = "";
@@ -152,11 +119,29 @@
         btn.onclick = () => checkAnswer(i);
         optionsDiv.appendChild(btn);
       });
+
+      timeLeft = 10;
+      document.getElementById("timer").innerText = `Waktu: ${timeLeft} detik`;
+      clearInterval(timerInterval);
+      timerInterval = setInterval(updateTimer, 1000);
       updateStatus();
     }
 
+    function updateTimer() {
+      timeLeft--;
+      document.getElementById("timer").innerText = `Waktu: ${timeLeft} detik`;
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        lives--;
+        alert("Waktu habis!");
+        current++;
+        loadQuestion();
+      }
+    }
+
     function checkAnswer(i) {
-      const correct = selectedQuestions[current].a;
+      clearInterval(timerInterval);
+      const correct = questions[current].a;
       if (i === correct) {
         score++;
         alert("Benar!");
@@ -174,4 +159,4 @@
     }
   </script>
 </body>
-  </html>
+</html>
