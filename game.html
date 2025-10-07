@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JumpQuest Gradient</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, orange, gold, yellow);
+    }
+
+    canvas {
+      display: block;
+    }
+
+    #hud {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: white;
+      font-size: 1.2em;
+      text-shadow: 1px 1px 2px black;
+      z-index: 10;
+    }
+
+    #controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      z-index: 10;
+    }
+
+    .btn {
+      padding: 15px 25px;
+      font-size: 1em;
+      background: rgba(255, 140, 0, 0.8);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+<body>
+  <div id="hud">Level: 1 | Skor: 0 | Shield: OFF</div>
+  <div id="controls">
+    <button class="btn" onclick="player.jump()">Lompat</button>
+    <button class="btn" onclick="activateShield()">Shield</button>
+  </div>
+  <canvas id="gameCanvas"></canvas>
+
+  <!-- Suara -->
+  <audio id="jumpSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_1f3b2b4e3c.mp3?filename=jump-1-174276.mp3"></audio>
+  <audio id="hitSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b6b6b6e3c.mp3?filename=hit-1-174278.mp3"></audio>
+
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let level = 1;
+    let score = 0;
+    let gravity = 0.6;
+    let jumpPower = -12;
+    let obstacles = [];
+    let shieldActive = false;
+    let shieldTimer = 0;
+
+    const jumpSound = document.getElementById("jumpSound");
+    const hitSound = document.getElementById("hitSound");
+
+    const player = {
+      x: 100,
+      y: canvas.height - 150,
+      width: 50,
+      height: 50,
+      dy: 0,
+      color: "white",
+      jump: function () {
+        if (this.y >= canvas.height - this.height - 100) {
+          this.dy = jumpPower;
+          jumpSound.play();
+        }
+      },
+      update: function () {
+        this.dy += gravity;
+        this.y += this.dy;
+        if (this.y > canvas.height - this.height - 100) {
+          this.y = canvas.height - this.height - 100;
+          this.dy = 0;
+        }
+      },
+      draw: function () {
+        ctx.fillStyle = shieldActive ? "lightblue" : this.color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+      }
+    };
+
+    function createObstacle() {
+      const height = 50 + Math.random() * 50;
+      obstacles.push({
+        x: canvas.width,
+        y: canvas.height - height - 100,
+        width: 30 + level * 5,
+        height: height,
+        speed: 4 + level
+      });
+    }
+
+    function updateObstacles() {
+      for (let i = 0; i < obstacles.length; i++) {
+        obstacles[i].x -= obstacles[i].speed;
+        if (
+          player.x < obstacles[i].x + obstacles[i].width &&
+          player.x + player.width > obstacles[i].x &&
+          player.y < obstacles[i].y + obstacles[i].height &&
+          player.y + player.height > obstacles[i].y
+        ) {
+          if (!shieldActive) {
+            hitSound.play();
+            alert("Game Over! Kamu sampai level " + level);
+            document.location.reload();
+          }
+        }
+      }
+
+      obstacles = obstacles.filter(ob => ob.x + ob.width > 0);
+    }
+
+    function drawObstacles() {
+      ctx.fillStyle = "rgba(255, 215, 0, 0.8)";
+      for (let ob of obstacles) {
+        ctx.fillRect(ob.x, ob.y, ob.width, ob.height);
+      }
+    }
+
+    function activateShield() {
+      if (!shieldActive) {
+        shieldActive = true;
+        shieldTimer = 300; // 5 detik
+      }
+    }
+
+    function gameLoop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      player.update();
+      player.draw();
+      updateObstacles();
+      drawObstacles();
+
+      score++;
+      if (score % 200 === 0) level++;
+      if (score % 100 === 0) createObstacle();
+
+      if (shieldActive) {
+        shieldTimer--;
+        if (shieldTimer <= 0) shieldActive = false;
+      }
+
+      document.getElementById("hud").innerText =
+        `Level: ${level} | Skor: ${score} | Shield: ${shieldActive ? "ON" : "OFF"}`;
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.code === "Space") player.jump();
+    });
+
+    document.addEventListener("touchstart", () => player.jump());
+
+    gameLoop();
+  </script>
+</body>
+    </html>
