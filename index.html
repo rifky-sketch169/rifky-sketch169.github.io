@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SMKS Islam Malahayati</title>
   <style>
-    /* Font & Reset */
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
@@ -192,7 +191,7 @@
 
   <section id="kontak" class="slide-section">
     <h2>Kontak Sekolah</h2>
-    <p>Alamat: Jl. Gongseng Raya No. 123, Jakarta Timur</p>
+    <p>Alamat: Jl. Pendidikan No. 123, Jakarta Selatan</p>
     <p>Email: info@smksmalahayati.sch.id</p>
     <p>Telepon: (021) 12345678</p>
   </section>
@@ -203,12 +202,12 @@
     <p>"Lingkungan belajar yang nyaman dan guru-guru yang inspiratif." - <em>Aulia, Alumni AKL</em></p>
   </section>
 
-  <form>
+  <form onsubmit="sendToWhatsApp(); return false;">
     <h2>Formulir Kontak</h2>
-    <input type="text" placeholder="Nama Anda" required />
-    <input type="email" placeholder="Email Anda" required />
-    <textarea rows="5" placeholder="Pesan Anda" required></textarea>
-    <button type="submit">Kirim</button>
+    <input type="text" id="nama" placeholder="Nama Anda" required />
+    <input type="email" id="email" placeholder="Email Anda" required />
+    <textarea id="pesan" rows="5" placeholder="Pesan Anda" required></textarea>
+    <button type="submit">Kirim ke WhatsApp</button>
   </form>
 
   <script>
@@ -221,6 +220,18 @@
       sections.forEach(sec => sec.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }
+
+    function sendToWhatsApp() {
+      const nama = document.getElementById("nama").value;
+      const email = document.getElementById("email").value;
+      const pesan = document.getElementById("pesan").value;
+
+      const noTujuan = "6285283905807"; // Ganti dengan nomor WhatsApp tujuan
+      const text = `Halo, saya ${nama} (${email}) ingin menghubungi:\n\n${pesan}`;
+      const url = `https://wa.me/${noTujuan}?text=${encodeURIComponent(text)}`;
+
+      window.open(url, "_blank");
+    }
   </script>
 </body>
-    </html>
+  </html>
