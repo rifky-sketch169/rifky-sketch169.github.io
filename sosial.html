@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harmoni Bermasyarakat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #FFD700;
+      --dark: #0a0a0a;
+      --gradient: linear-gradient(to right, #0a0a0a, #1a1a1a, #2a2a2a);
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: var(--gradient);
+      color: var(--gold);
+      padding: 20px;
+    }
+    header {
+      text-align: center;
+      padding: 50px 0;
+      animation: fadeInDown 1s ease-out;
+    }
+    header h1 {
+      font-size: 3em;
+      background: linear-gradient(to right, #FFD700, #FFA500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    header p {
+      font-size: 1.2em;
+      color: #ccc;
+    }
+    .section {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      animation: fadeInUp 1.2s ease-out;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #333;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .card p {
+      padding: 15px;
+      color: #eee;
+    }
+    .form-section {
+      margin-top: 60px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 12px;
+      animation: fadeInUp 1.5s ease-out;
+    }
+    .form-section h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--gold);
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    input, textarea {
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #1a1a1a;
+      color: white;
+    }
+    input::placeholder, textarea::placeholder {
+      color: #aaa;
+    }
+    button {
+      padding: 12px;
+      background: linear-gradient(to right, #FFD700, #FFA500);
+      border: none;
+      border-radius: 8px;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: linear-gradient(to right, #FFA500, #FFD700);
+    }
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 0.9em;
+      color: #777;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Harmoni Bermasyarakat</h1>
+    <p>Menjalin kebersamaan, membangun masa depan</p>
+  </header>
+
+  <section class="section">
+    <div class="card">
+      <img src="https://source.unsplash.com/featured/?community" alt="Komunitas">
+      <p>Gotong royong adalah fondasi masyarakat yang kuat.</p>
+    </div>
+    <div class="card">
+      <img src="https://source.unsplash.com/featured/?volunteer" alt="Relawan">
+      <p>Relawan membawa harapan dan perubahan nyata.</p>
+    </div>
+    <div class="card">
+      <img src="https://source.unsplash.com/featured/?together" alt="Kebersamaan">
+      <p>Kebersamaan menciptakan rasa aman dan nyaman.</p>
+    </div>
+  </section>
+
+  <section class="form-section">
+    <h2>Form Interaksi Warga</h2>
+    <form onsubmit="sendToWhatsApp(event)">
+      <input type="text" id="nama" placeholder="Nama Anda" required />
+      <input type="text" id="alamat" placeholder="Alamat / RT RW" required />
+      <textarea id="pesan" rows="4" placeholder="Pesan atau keluhan..." required></textarea>
+      <button type="submit">Kirim ke WhatsApp</button>
+    </form>
+  </section>
+
+  <footer>
+    &copy; 2025 Harmoni Bermasyarakat. Dibuat dengan semangat kebersamaan.
+  </footer>
+
+  <script>
+    function sendToWhatsApp(e) {
+      e.preventDefault();
+      const nama = document.getElementById("nama").value;
+      const alamat = document.getElementById("alamat").value;
+      const pesan = document.getElementById("pesan").value;
+      const noWa = "6281234567890"; // Ganti dengan nomor tujuan
+
+      const text = `Halo, saya ${nama} dari ${alamat}.%0A%0A${pesan}`;
+      const url = `https://wa.me/${noWa}?text=${text}`;
+      window.open(url, "_blank");
+    }
+  </script>
+</body>
+  </html>
